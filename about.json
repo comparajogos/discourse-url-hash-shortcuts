@@ -1,8 +1,8 @@
 {
   "name": "Discourse URL Hash Shortcuts",
   "component": true,
-  "authors": "Discourse",
-  "about_url": "https://github.com/comparajogos/discourse-url-hash-shortcuts",
+  "authors": "Compara Jogos",
+  "about_url": "https://github.com/comparajogos/discourse-url-hash-shortcuts/blob/master/README.md",
   "license_url": "https://github.com/comparajogos/discourse-url-hash-shortcuts/blob/master/LICENSE",
   "theme_version": "0.0.1",
   "minimum_discourse_version": null,

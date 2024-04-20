@@ -1,5 +1,3 @@
-# **Theme Name**
+# **Discourse URL Hash Shortcuts**
 
-**Theme Summary**
-
-For more information, please see: **url to meta topic**
+A _very_ simple theme component to support `#reply`, `#edit` and `#logout` hash/fragment URL shortcuts.

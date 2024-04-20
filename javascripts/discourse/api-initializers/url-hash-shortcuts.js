@@ -21,10 +21,13 @@ export default apiInitializer("1.8.0", (api) => {
           api.container.lookup("route:application").send("showLogin");
         }
 
+        const post = topic
+          .get("postStream.posts")
+          .findBy("post_number", topic.get("current_post_number"));
         if (action === Composer.EDIT) {
-          topicController.send("editPost", topic.postStream.posts[0]);
+          topicController.send("editPost", post);
         } else {
-          topicController.send("replyToPost");
+          topicController.send("replyToPost", post);
         }
       }
     });
