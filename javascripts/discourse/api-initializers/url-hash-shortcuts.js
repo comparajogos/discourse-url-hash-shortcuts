@@ -19,21 +19,20 @@ export default apiInitializer("1.8.0", (api) => {
         if (!api.getCurrentUser()) {
           cookie("destination_url", window.location.href);
           api.container.lookup("route:application").send("showLogin");
+          return;
         }
 
-        const post = topic
+        const currentPost = topic
           .get("postStream.posts")
           .findBy("post_number", topic.get("current_post_number"));
         if (action === Composer.EDIT) {
-          topicController.send("editPost", post);
+          topicController.send("editPost", currentPost);
         } else {
-          topicController.send("replyToPost", post);
+          topicController.send("replyToPost", currentPost);
         }
       }
     });
-  }
-
-  if (action === "logout" && api.getCurrentUser()) {
+  } else if (action === "logout" && api.getCurrentUser()) {
     api
       .getCurrentUser()
       .destroySession()
