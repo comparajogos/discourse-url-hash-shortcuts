@@ -11,10 +11,9 @@ export default apiInitializer("1.8.0", (api) => {
   const action = match?.[1];
 
   if ([Composer.REPLY, Composer.EDIT].includes(action)) {
-    const composer = api.container.lookup("service:composer");
-
-    next(async () => {
-      const topic = api.container.lookup("controller:topic").get("model");
+    next(() => {
+      const topicController = api.container.lookup("controller:topic");
+      const topic = topicController.get("model");
 
       if (topic && action) {
         if (!api.getCurrentUser()) {
@@ -22,16 +21,11 @@ export default apiInitializer("1.8.0", (api) => {
           api.container.lookup("route:application").send("showLogin");
         }
 
-        const post =
-          action === Composer.EDIT ? topic.postStream.posts[0] : undefined;
-
-        await composer.open({
-          action,
-          draftKey: topic.get("draft_key"),
-          draftSequence: topic.get("draft_sequence"),
-          topic,
-          post,
-        });
+        if (action === Composer.EDIT) {
+          topicController.send("editPost", topic.postStream.posts[0]);
+        } else {
+          topicController.send("replyToPost");
+        }
       }
     });
   }
